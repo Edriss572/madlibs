@@ -26,8 +26,27 @@
  * There are multiple ways to do this, but you may want to use regular expressions.
  * Please go through this lesson: https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/regular-expressions/
  */
+let raw = '';
+const regex =  /^\w+(?:...[n|a|v])/;
+
 function parseStory(rawStory) {
   // Your code here.
+  raw = rawStory;
+  
+
+  const story = rawStory.split(' ');
+  const edit = document.querySelector('.madLibsEdit');
+  
+
+  for(let i = 0;i<story.length;i++) {
+
+    if(story[i].match(regex) != null) {
+      story[i] =`<input type=text placeholder = ${story[i]}>`;
+    }
+  }
+
+  edit.innerHTML = story.join(' ');
+
   return {}; // This line is currently wrong :)
 }
 
@@ -47,3 +66,25 @@ getRawStory()
   .then((processedStory) => {
     console.log(processedStory);
   });
+
+
+const btn = document.querySelector('button')
+btn.addEventListener('click', printText);
+
+function printText() {
+  const inputs = document.querySelectorAll('input')
+
+  const story = raw.split(' ');
+  const view = document.querySelector('.madLibsPreview');
+  
+
+  for(let i = 0;i<story.length;i++) {
+    let j = 0
+    if(story[i].match(regex) != null) {
+      story[i] = inputs[j].value;
+      j++;
+    }
+  }
+
+  view.innerHTML = story.join(' ');
+}
