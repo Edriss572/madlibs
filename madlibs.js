@@ -41,7 +41,7 @@ function parseStory(rawStory) {
   for(let i = 0;i<story.length;i++) {
 
     if(story[i].match(regex) != null) {
-      story[i] =`<input type=text placeholder = ${story[i]}>`;
+      story[i] =`<input type='text' id= ${i} placeholder = '${story[i]}'>`;
     }
   }
 
@@ -74,12 +74,16 @@ btn.addEventListener('click', printText);
 function printText() {
   const inputs = document.querySelectorAll('input')
 
+  for(let i =0 ;i < inputs.length;i++) {
+    if(inputs[i].value === '') {
+      inputs[i].value = '_';
+    }
+  }
   const story = raw.split(' ');
   const view = document.querySelector('.madLibsPreview');
   
-
+  let j =0;
   for(let i = 0;i<story.length;i++) {
-    let j = 0
     if(story[i].match(regex) != null) {
       story[i] = inputs[j].value;
       j++;
